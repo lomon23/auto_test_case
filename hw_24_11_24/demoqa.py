@@ -93,6 +93,27 @@ class MyTest(unittest.TestCase):
 
         print("Тест пройшов успішно!")
 
+    def test5(self):
+        try:
+            self.check_box_element = self.wait.until(EC.element_to_be_clickable((By.ID, "item-1")))
+            self.check_box_element.click()
+            self.show_all = self.wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, ".rct-icon-expand-all")))
+            self.show_all.click()
+            self.all_elements = self.wait.until(lambda driver: driver.find_elements(By.CLASS_NAME, 'rct-icon-uncheck'))
+            self.all_elements[3].click()
+            self.assertEqual(self.driver.find_element(By.CLASS_NAME, "text-success").text, "commands")
+        finally:
+            self.driver.quit()
+
+      def test6(self):
+        try:
+            self.radio_button = self.driver.find_element(By.ID, "item-2")
+            self.radio_button.click()
+            self.yes_radio_button = self.driver.find_element(By.CLASS_NAME, "custom-control-label")
+            self.yes_radio_button.click()
+            self.assertEqual(self.yes_radio_button.text, "Yes")
+        finally:
+            self.driver.quit()
     def tearDown(self):
         self.driver.quit()
 
